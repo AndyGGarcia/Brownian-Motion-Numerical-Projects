@@ -14,11 +14,9 @@ def Brownian_Path(t, dt):
         return [0]
     total_steps = int(t/dt)
     path = [0]
-    time = [0]
     for i in range(1,total_steps):
         local_t = i*dt
         path.append(path[i-1] +  np.random.normal(0,np.sqrt(local_t- (local_t-dt))))
-        time.append(local_t)
     return path
 """
 Our brownian path function generates brownian paths for a given time interval [0,t] with step size dt to determine increment size. 
