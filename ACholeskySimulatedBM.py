@@ -9,20 +9,21 @@ import matplotlib.pyplot as plt
 class Brownian_Sampling:
     def __init__(self,num_steps):
         self.num_steps = num_steps
-        self.intervals = [i*.01 for i in range(1, num_steps)]
+        self.scale_factor = 1/num_steps
+        self.intervals = [i*scale_factor for i in range(1, num_steps)]
         self.Brownian_Motion = self.ConstructBrownianPath(self.num_steps)
 
     def Cholesky_Decomp(self,num_steps):
         #generating the covariance matrix with 0's to get the size down
         cov_matrix = np.zeros((num_steps-1, num_steps-1))
-        intervals = [i*.01 for i in range(1, num_steps)]
         '''
         covariance defined as min(s,t) for two times t and s
         '''
         #constructing the covariance matrix
         for i in range(num_steps-1):
-            for j in range(num_steps-1):
-                cov_matrix[i][j] = min(intervals[i], intervals[j])
+            cov_matrix[i] = self.intervals
+            cov_matrix[i][i:num_steps-1] = self.intervals[i]
+
         #matrix built
         ''''
         now for the cholesky decomposition
@@ -56,7 +57,7 @@ class Brownian_Sampling:
 
     def Graph(self,Sampled_Brownian):
         #scaling internvals for graph
-        self.intervals = [i*100 for i in self.intervals]
+        self.intervals = [i*self.num_Steps for i in self.intervals]
         #adding t0 = 0
         self.intervals.insert(0, 0)
         #plotting graph.
