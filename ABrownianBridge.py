@@ -1,3 +1,8 @@
+"""
+Updated June 13 2023
+
+"""
+
 '''Generating Brownian bridge off t = 1 and dt step = an input by user'''
 
 import random
